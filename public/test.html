@@ -1,0 +1,34 @@
+function showResults() {
+    const finalScore = score;
+    const totalQuestions = questions.length;
+    const percentage = ((finalScore / totalQuestions) * 100).toFixed(2);
+
+    const correctAnswers = [];
+    const incorrectAnswers = [];
+
+    // تقسيم الإجابات الصحيحة والخاطئة
+    questions.forEach((question, index) => {
+        if (selectedAnswers[index] === question.correctAnswer) {
+            correctAnswers.push(question.options.find(option => option.value === question.correctAnswer).text);
+        } else {
+            incorrectAnswers.push({
+                question: question.question,
+                correctAnswer: question.options.find(option => option.value === question.correctAnswer).text,
+                userAnswer: question.options.find(option => option.value === selectedAnswers[index]).text
+            });
+        }
+    });
+
+    const results = {
+        score: finalScore,
+        totalQuestions: totalQuestions,
+        percentage: percentage,
+        averageTime: (totalTime / totalQuestions).toFixed(2),
+        correctAnswers: correctAnswers,
+        incorrectAnswers: incorrectAnswers,
+        date: new Date().toISOString()
+    };
+
+    localStorage.setItem('quizResults', JSON.stringify(results));
+    window.location.href = 'Results_Page.html'; // توجيه المستخدم إلى صفحة النتائج
+}

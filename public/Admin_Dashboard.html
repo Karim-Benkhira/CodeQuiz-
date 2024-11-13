@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberSecurity Quiz - Admin Dashboard</title>
+    <link href="output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="bg-gray-900 text-white flex flex-col min-h-screen">
+    <!-- Header -->
+    <header class="w-full bg-green-700 text-white p-4 flex justify-between items-center shadow-md flex-wrap">
+        <div class="flex items-center mb-2 md:mb-0">
+            <img src="img/htbb.png" alt="Logo" class="w-10 h-10 mr-3">
+            <h1 class="text-2xl font-bold">CyberSecurity Quiz</h1>
+        </div>
+        <button id="menu-toggle" class="block md:hidden focus:outline-none"> <i class="fas fa-bars text-2xl"></i> </button>
+        <nav id="menu" class="flex items-center" class="hidden md:flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 w-full md:w-auto mt-2 md:mt-0">
+            <ul class="flex  mr-6 flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-6 w-full md:w-auto">
+                <li><a href="index.html" class="flex items-center hover:text-gray-400"><i class="fas fa-home mr-2"></i>Home</a></li>
+                <li><a href="about.html" class="flex items-center hover:text-gray-400"><i class="fas fa-info-circle mr-2"></i>About</a></li>
+                <li><a href="contact.html" class="flex items-center hover:text-gray-400"><i class="fas fa-envelope mr-2"></i>Contact</a></li>
+                <li><a href="admin.html" class="flex items-center hover:text-gray-400"><i class="fas fa-user-shield mr-2"></i>Admin</a></li>
+            </ul>
+            <a href="login.html" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 flex items-center ml-auto md:ml-0">
+                <i class="fas fa-sign-in-alt mr-2"></i>Login
+            </a>
+        </nav>
+    </header>
+    <!-- End of Header -->
+    
+    <!-- Admin Dashboard Section -->
+    <section id="admin-dashboard" class="flex-grow py-20">
+        <div class="container mx-auto px-4">
+            <div class="bg-gray-800 p-6 rounded-lg shadow-md">
+                <h2 class="text-3xl font-bold mb-4 text-center">Admin Dashboard</h2>
+                <div id="success-message" class="hidden bg-green-600 text-white p-4 rounded mb-4">Quiz added successfully!</div>
+                <div id="error-message" class="hidden bg-red-600 text-white p-4 rounded mb-4">There was an error adding the quiz.</div>
+
+                <div class="flex justify-between mb-4">
+                    <h3 class="text-2xl font-bold">Manage Quizzes</h3>
+                    <button class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700" onclick="toggleAddQuizForm()">Add New Quiz</button>
+                </div>
+                <div id="add-quiz-form" class="hidden mb-4">
+                    <h4 class="text-xl font-bold mb-2">Add New Quiz</h4>
+                    <form>
+                        <div class="mb-4">
+                            <label for="quiz-title" class="block text-gray-300 mb-2">Quiz Title</label>
+                            <input type="text" id="quiz-title" class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-green-500" placeholder="Enter the title of the quiz">
+                        </div>
+                        <div class="mb-4">
+                            <label for="quiz-description" class="block text-gray-300 mb-2">Description</label>
+                            <textarea id="quiz-description" class="w-full p-2 rounded bg-gray-700 text-white border border-gray-600 focus:outline-none focus:border-green-500" placeholder="Enter a brief description of the quiz"></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button type="button" class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 mr-2" onclick="toggleAddQuizForm()">Cancel</button>
+                            <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Add Quiz</button>
+                        </div>
+                    </form>
+                </div>
+                
+                <table class="w-full text-left table-auto">
+                    <thead>
+                        <tr class="bg-gray-700">
+                            <th class="border-b-2 border-gray-600 p-2">Quiz Title</th>
+                            <th class="border-b-2 border-gray-600 p-2">Questions</th>
+                            <th class="border-b-2 border-gray-600 p-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="bg-gray-800 hover:bg-gray-700">
+                            <td class="border-b border-gray-600 p-2">CyberSecurity Basics</td>
+                            <td class="border-b border-gray-600 p-2">10</td>
+                            <td class="border-b border-gray-600 p-2">
+                                <button class="bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700">Edit</button>
+                                <button class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700">Delete</button>
+                            </td>
+                        </tr>
+                        <!-- Add more quizzes as needed -->
+                    </tbody>
+                </table>
+                
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="w-full bg-green-700 text-white p-4 text-center mt-auto shadow-md">
+        <p>&copy; 2024 CyberSecurity Quiz. All rights reserved.</p>
+        <div class="mt-2 flex justify-center space-x-4">
+            <a href="https://facebook.com"><i class="fab fa-facebook-f hover:text-gray-400"></i></a>
+            <a href="https://twitter.com"><i class="fab fa-twitter hover:text-gray-400"></i></a>
+            <a href="https://linkedin.com"><i class="fab fa-linkedin-in hover:text-gray-400"></i></a>
+            <a href="https://github.com"><i class="fab fa-github hover:text-gray-400"></i></a>
+        </div>
+    </footer>
+    
+    <!-- Link to Font Awesome for icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            var menu = document.getElementById('menu');
+            menu.classList.toggle('hidden');
+        });
+
+        function toggleAddQuizForm() {
+            var form = document.getElementById('add-quiz-form');
+            form.classList.toggle('hidden');
+        }
+
+        document.getElementById('add-quiz-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            // Simulate adding a quiz
+            var success = true; // Change to false to simulate an error
+
+            if (success) {
+                document.getElementById('success-message').classList.remove('hidden');
+            } else {
+                document.getElementById('error-message').classList.remove('hidden');
+            }
+
+            // Hide the messages after a few seconds
+            setTimeout(function() {
+                document.getElementById('success-message').classList.add('hidden');
+                document.getElementById('error-message').classList.add('hidden');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
