@@ -94,7 +94,6 @@
     </footer>
     
     <!-- Link to Font Awesome for icons -->
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <script>
         document.getElementById('menu-toggle').addEventListener('click', function() {
             var menu = document.getElementById('menu');
@@ -107,6 +106,7 @@
         let timeRemaining = 60; 
         const questions = [
         {
+            type: "multiple-choice",
             question: "What is the primary goal of a DDoS attack?",
             options: [
                 { text: "Disrupt traffic", value: "Option A" },
@@ -118,6 +118,7 @@
             explanation: "A DDoS attack aims to disrupt the normal traffic of a targeted server, service or network."
         },
         {
+            type: "multiple-choice",
             question: "Which attack involves phishing for information via email?",
             options: [
                 { text: "DDoS Attack", value: "Option A" },
@@ -129,6 +130,7 @@
             explanation: "Phishing attacks use fake emails or messages to trick users into revealing sensitive information."
         },
         {
+            type: "multiple-choice",
             question: "What is the purpose of data encryption?",
             options: [
                 { text: "To increase data transfer speed", value: "Option A" },
@@ -140,6 +142,7 @@
             explanation: "Data encryption secures data by encoding it, making it accessible only to those with the correct decryption key."
         },
         {
+            type: "multiple-choice",
             question: "Which type of attack involves sending fake requests to deceive systems?",
             options: [
                 { text: "Brute-force attack", value: "Option A" },
@@ -151,6 +154,7 @@
             explanation: "A Denial of Service (DoS) attack aims to overwhelm a system by sending numerous fake requests, causing service disruption."
         },
         {
+            type: "multiple-choice",
             question: "Which protocol is used to secure data transmission over a network?",
             options: [
                 { text: "HTTP", value: "Option A" },
@@ -162,6 +166,7 @@
             explanation: "SSH (Secure Shell) is a protocol that provides a secure channel for data transfer over networks."
         },
         {
+            type: "multiple-choice",
             question: "Which of the following is a type of attack that targets passwords?",
             options: [
                 { text: "Denial of Service attack", value: "Option A" },
@@ -173,6 +178,7 @@
             explanation: "A brute-force attack tries multiple password combinations to gain unauthorized access."
         },
         {
+            type: "multiple-choice",
             question: "What is the primary function of a firewall?",
             options: [
                 { text: "To block all incoming and outgoing data", value: "Option A" },
@@ -184,6 +190,7 @@
             explanation: "Firewalls help control and monitor incoming and outgoing network traffic based on security rules."
         },
         {
+        type: "multiple-choice",
         question: "What is two-factor authentication (2FA)?",
         options: [
             { text: "A security measure that uses only a password", value: "Option A" },
@@ -206,6 +213,7 @@
             explanation: "Phishing emails often ask for sensitive information, which legitimate companies rarely do via email."
         },
         {
+            type: "multiple-choice",
             question: "What does VPN stand for?",
             options: [
                 { text: "Virtual Private Network", value: "Option A" },
@@ -243,13 +251,37 @@
         const totalQuestions = questions.length;
         const percentage = ((finalScore / totalQuestions) * 100).toFixed(2);
         const correctAnswers = [];
-        localStorage.setItem('finalScore', finalScore);
-        localStorage.setItem('percentage', percentage);
+        const incorrectAnswers = [];
+
+        questions.forEach((question, index) => {
+        if (selectedAnswers[index] === question.correctAnswer) {
+            correctAnswers.push(question.options.find(option => option.value === question.correctAnswer).text);
+        } else {
+            incorrectAnswers.push({
+                question: question.question,
+                correctAnswer: question.options.find(option => option.value === question.correctAnswer).text,
+                userAnswer: question.options.find(option => option.value === selectedAnswers[index]).text
+            });
+        }
+    });
+        const results = {
+            score: finalScore,
+            totalQuestions: totalQuestions,
+            percentage: percentage,
+            correctAnswers: correctAnswers,
+            incorrectAnswers: incorrectAnswers,
+            date: new Date().toISOString()
+        };
+
+        localStorage.setItem('quizResults', JSON.stringify(results));
         window.location.href = 'Results_Page.html';
      }
 
+     let selectedAnswers = [];
+
         function checkAnswer(selectedOption) {
             const question = questions[currentQuestionIndex];
+            selectedAnswers[currentQuestionIndex] = selectedOption;
             const options = ['option-a', 'option-b', 'option-c', 'option-d'];
             clearInterval(timerInterval); 
             options.forEach((option, index) => {
@@ -312,12 +344,6 @@
         document.getElementById('option-c').addEventListener('click', () => checkAnswer(questions[currentQuestionIndex].options[2].value));
         document.getElementById('option-d').addEventListener('click', () => checkAnswer(questions[currentQuestionIndex].options[3].value));
     });
-
-
-
-
-
-
 
 
     </script>
